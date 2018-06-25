@@ -1,7 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import { HomeScreen } from './src/screens';
-import { PostScreen } from './src/screens';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import ReduxThunk from 'redux-thunk';
+import { HomeScreen, PostScreen } from './src/screens';
+import reducers from './src/reducers';
 
 const navigationOptions = {
   headerTitle: 'Paintings',
@@ -23,4 +26,11 @@ const RootStack = createStackNavigator({
   },
 });
 
-export default () => <RootStack />;
+export default () => {
+  const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+  return (
+    <Provider store={store}>
+      <RootStack />
+    </Provider>
+  );
+};

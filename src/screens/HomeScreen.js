@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Camera, Permissions } from 'expo';
 import { RkButton } from 'react-native-ui-kitten';
 import { Spinner } from '../common/components';
+import { photoSnapped } from '../actions';
 
 class HomeScreen extends Component {
   camera = null;
@@ -36,11 +38,8 @@ class HomeScreen extends Component {
         loading: true,
       });
       const photo = await this.camera.takePictureAsync();
-      this.setState({
-        loading: false,
-      });
       console.log(photo);
-      this.props.navigation.navigate('Post');
+      this.props.photoSnapped(photo, this.props.navigation);
     }
   }
 
@@ -94,6 +93,7 @@ HomeScreen.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
+  photoSnapped: PropTypes.func.isRequired,
 };
 
 const styles = {
@@ -115,4 +115,7 @@ const styles = {
   },
 };
 
-export default HomeScreen;
+export default connect(
+  null,
+  { photoSnapped }
+)(HomeScreen);
