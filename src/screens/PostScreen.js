@@ -12,9 +12,15 @@ import { RkButton, RkTextInput, RkTheme } from 'react-native-ui-kitten';
 import { Spinner } from '../common/components';
 import StyleSheet from '../common/StyleSheet';
 import { createObject } from '../common/Functions';
+import { postAPhoto } from '../actions';
 
 class PostScreen extends Component {
-  onPress() {}
+  onPress() {
+    this.props.postAPhoto({
+      photo: this.props.photo,
+      message: 'hello',
+    });
+  }
 
   onPressHideKeyboard() {
     console.log('onPressHideKeyboard');
@@ -74,6 +80,7 @@ PostScreen.propTypes = {
   photo: PropTypes.shape({
     uri: PropTypes.string.isRequired,
   }),
+  postAPhoto: PropTypes.func.isRequired,
 };
 PostScreen.defaultProps = {
   photo: null,
@@ -121,4 +128,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps)(PostScreen);
+export default connect(
+  mapStateToProps,
+  { postAPhoto }
+)(PostScreen);

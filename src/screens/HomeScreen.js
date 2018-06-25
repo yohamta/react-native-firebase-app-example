@@ -46,7 +46,10 @@ class HomeScreen extends Component {
           this.setState({
             loading: false,
           });
-          this.props.photoSnapped(photo, this.props.navigation);
+          this.props.photoSnapped({
+            photo,
+            navigation: this.props.navigation,
+          });
         })
         .catch(err => {
           console.log('Taking Picture Fail!');
