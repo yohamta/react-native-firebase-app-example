@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
+import PhotoReducer from './PhotoReducer';
 
 export default combineReducers({
-  foo: () => [1, 2, 3],
+  photo: PhotoReducer,
 });

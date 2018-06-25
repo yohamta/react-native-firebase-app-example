@@ -32,40 +32,60 @@ class HomeScreen extends Component {
     });
   }
 
-  async onSnap() {
+  onSnap() {
     if (this.camera) {
-      this.setState({
-        loading: true,
-      });
-      const photo = await this.camera.takePictureAsync();
-      console.log(photo);
-      this.props.photoSnapped(photo, this.props.navigation);
+      //console.log('onSnap');
+      // this.setState({
+      //  loading: true,
+      // });
+      //console.log('Taking a picture');
+      this.camera
+        .takePictureAsync()
+        .then(photo => {
+          console.log('Taking Picture Success!');
+          console.log(photo);
+        })
+        .catch(err => {
+          console.log('Taking Picture Fail!');
+          console.log('err:', err);
+        });
+      // this.setState({
+      //  loading: false,
+      // });
+      // this.props.photoSnapped(photo, this.props.navigation);
     }
   }
 
   renderSnapButton() {
-    const { buttonStyle } = styles;
+    const { buttonStyle, buttonContainerStyle } = styles;
     if (this.state.loading) {
       return (
-        <RkButton style={buttonStyle} rkType="rounded">
+        <View style={{ height: 100 }}>
           <Spinner />
-        </RkButton>
+        </View>
       );
     }
     return (
-      <RkButton
-        style={buttonStyle}
-        rkType="rounded"
-        onPress={this.onSnap.bind(this)}
-      >
-        Snap
-      </RkButton>
+      <View style={buttonContainerStyle}>
+        <RkButton
+          style={buttonStyle}
+          rkType="rounded"
+          onPress={this.onSnap.bind(this)}
+        >
+          Snap
+        </RkButton>
+      </View>
     );
   }
 
   render() {
     const { hasCameraPermission } = this.state;
-    const { containerStyle, cameraStyle, buttonContainerStyle } = styles;
+    const {
+      containerStyle,
+      cameraStyle,
+      buttonStyle,
+      buttonContainerStyle,
+    } = styles;
 
     if (hasCameraPermission === null) {
       return <View />;
@@ -81,10 +101,8 @@ class HomeScreen extends Component {
           ref={ref => {
             this.camera = ref;
           }}
-        >
-          <View style={{ flex: 1 }} />
-          <View style={buttonContainerStyle}>{this.renderSnapButton()}</View>
-        </Camera>
+        />
+        {this.renderSnapButton()}
       </View>
     );
   }

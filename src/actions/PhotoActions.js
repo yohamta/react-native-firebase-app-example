@@ -4,6 +4,6 @@ export const photoSnapped = (photo, navigation) => {
   navigation.navigate('Post');
   return {
     type: PHOTO_SNAPPED,
-    photo,
+    payload: photo,
   };
 };
