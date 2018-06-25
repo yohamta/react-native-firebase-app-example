@@ -34,25 +34,26 @@ class HomeScreen extends Component {
 
   onSnap() {
     if (this.camera) {
-      //console.log('onSnap');
-      // this.setState({
-      //  loading: true,
-      // });
-      //console.log('Taking a picture');
+      this.setState({
+        loading: true,
+      });
       this.camera
         .takePictureAsync()
         .then(photo => {
           console.log('Taking Picture Success!');
           console.log(photo);
+          this.setState({
+            loading: false,
+          });
+          this.props.photoSnapped(photo, this.props.navigation);
         })
         .catch(err => {
           console.log('Taking Picture Fail!');
           console.log('err:', err);
+          this.setState({
+            loading: false,
+          });
         });
-      // this.setState({
-      //  loading: false,
-      // });
-      // this.props.photoSnapped(photo, this.props.navigation);
     }
   }
 
@@ -60,7 +61,7 @@ class HomeScreen extends Component {
     const { buttonStyle, buttonContainerStyle } = styles;
     if (this.state.loading) {
       return (
-        <View style={{ height: 100 }}>
+        <View style={{ height: 60 }}>
           <Spinner />
         </View>
       );
@@ -80,12 +81,7 @@ class HomeScreen extends Component {
 
   render() {
     const { hasCameraPermission } = this.state;
-    const {
-      containerStyle,
-      cameraStyle,
-      buttonStyle,
-      buttonContainerStyle,
-    } = styles;
+    const { containerStyle, cameraStyle } = styles;
 
     if (hasCameraPermission === null) {
       return <View />;
