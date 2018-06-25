@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Camera, Permissions } from 'expo';
 import { RkButton } from 'react-native-ui-kitten';
 import { Spinner } from '../common/components';
+import StyleSheet from '../common/StyleSheet';
 import { photoSnapped } from '../actions';
 
 class HomeScreen extends Component {
@@ -110,7 +111,7 @@ HomeScreen.propTypes = {
   photoSnapped: PropTypes.func.isRequired,
 };
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
     flexDirection: 'column',
@@ -127,7 +128,7 @@ const styles = {
   buttonStyle: {
     alignSelf: 'center',
   },
-};
+});
 
 export default connect(
   null,
