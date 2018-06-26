@@ -1,4 +1,5 @@
+import TimelineScreen from './TimelineScreen';
 import HomeScreen from './HomeScreen';
 import PostScreen from './PostScreen';
 
-export { HomeScreen, PostScreen };
+export { TimelineScreen, HomeScreen, PostScreen };

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
+import { View, Easing, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { HomeScreen, PostScreen } from './screens';
+import { FontAwesome } from '@expo/vector-icons'; // eslint-disable-line
+import { TimelineScreen, HomeScreen, PostScreen } from './screens';
 import { loginSuccess, loginAnonymously } from './actions';
 
 const navigationOptions = {
@@ -14,16 +16,64 @@ const navigationOptions = {
   },
 };
 
-const RootStack = createStackNavigator({
-  Home: {
-    screen: HomeScreen,
-    navigationOptions,
+const transitionConfig = () => ({
+  transitionSpec: {
+    duration: 750,
+    easing: Easing.out(Easing.poly(4)),
+    timing: Animated.timing,
+    useNativeDriver: true,
   },
-  Post: {
-    screen: PostScreen,
-    navigationOptions,
+  screenInterpolator: sceneProps => {
+    const { layout, position, scene } = sceneProps;
+    const thisSceneIndex = scene.index;
+    const width = layout.initWidth;
+    const translateX = position.interpolate({
+      inputRange: [thisSceneIndex - 1, thisSceneIndex],
+      outputRange: [width, 0],
+    });
+    return { transform: [{ translateX }] };
   },
 });
+
+const RootStack = createStackNavigator(
+  {
+    Timeline: {
+      screen: TimelineScreen,
+      navigationOptions: navigation => ({
+        ...navigationOptions,
+        headerRight: (
+          <View style={{ marginRight: 8 }}>
+            <FontAwesome.Button
+              name="plus-square"
+              size={32}
+              backgroundColor="#fff"
+              color="#a167bf"
+              onPress={() => {
+                navigation.navigation.navigate('Home');
+              }}
+              iconStyle={{ alignSelf: 'center', marginLeft: 10 }}
+              style={{
+                height: 44,
+                padding: 0,
+              }}
+            />
+          </View>
+        ),
+      }),
+    },
+    Home: {
+      screen: HomeScreen,
+      navigationOptions,
+    },
+    Post: {
+      screen: PostScreen,
+      navigationOptions,
+    },
+  },
+  {
+    transitionConfig,
+  }
+);
 
 class Root extends Component {
   componentWillMount() {
