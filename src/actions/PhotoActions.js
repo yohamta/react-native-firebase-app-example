@@ -90,7 +90,9 @@ export const uploadPhoto = ({
       thumb_url: result[1],
       thumb_width: images[1].width,
       thumb_height: images[1].height,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      /* timestamp */
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
     console.log(`Document written: ${docRef.id}`);
     dispatch({ type: UPLOAD_PHOTO_SUCCESS });
