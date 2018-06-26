@@ -23,24 +23,32 @@ export const photoSnapped = ({ photo, navigation }) => {
   };
 };
 
-export const uploadPhoto = ({ photo, message, user }) => async dispatch => {
+export const uploadPhoto = ({
+  photo,
+  title,
+  category,
+  message,
+  user,
+}) => async dispatch => {
   dispatch({ type: UPLOAD_PHOTO });
   try {
     // upload photo
     const response = await fetch(photo.uri);
     const blob = await response.blob();
-    const ext = photo.uri.replace(/^.*\./, '');
-    const basename = Date.now();
-    const url = await uploadFile(blob, `${basename}.${ext}`);
-    console.log(url);
+    const name = `images/${Date.now()}.${photo.uri.replace(/^.*\./, '')}`;
+    const url = await uploadFile(blob, name);
     // write messaget to firestore
     const firebase = require('firebase'); // eslint-disable-line global-require
     require('firebase/firestore'); // eslint-disable-line global-require
     const db = firebase.firestore();
     const docRef = await db.collection('paintings').add({
       uid: user.uid,
+      title,
+      category,
       message,
       photo_url: url,
+      photo_name: name,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     console.log(`Document written: ${docRef.id}`);
     dispatch({ type: UPLOAD_PHOTO_SUCCESS });

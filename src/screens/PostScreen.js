@@ -15,10 +15,18 @@ import { createObject } from '../common/Functions';
 import { uploadPhoto } from '../actions';
 
 class PostScreen extends Component {
+  state = {
+    title: '',
+    category: '',
+    message: '',
+  };
+
   onPress() {
     this.props.uploadPhoto({
       photo: this.props.photo,
-      message: 'hello',
+      title: this.state.title,
+      category: this.state.category,
+      message: this.state.message,
       user: this.props.user,
     });
   }
@@ -31,7 +39,11 @@ class PostScreen extends Component {
   renderButton() {
     const { buttonStyle } = styles;
     if (this.props.uploading) {
-      return <Spinner style={{ alignSelf: 'center' }} />;
+      return (
+        <View style={{ height: 40 }}>
+          <Spinner style={{ alignSelf: 'center' }} />
+        </View>
+      );
     }
     return (
       <RkButton
@@ -71,10 +83,23 @@ class PostScreen extends Component {
             </View>
             <View style={inputContainerStyle}>
               <RkTextInput
+                placeholder="Title"
+                rkType="post"
+                style={{ height: 40 }}
+                onChangeText={title => this.setState({ title })}
+              />
+              <RkTextInput
+                placeholder="Category"
+                rkType="post"
+                style={{ height: 40 }}
+                onChangeText={category => this.setState({ category })}
+              />
+              <RkTextInput
                 placeholder="Comment"
                 multiline
                 rkType="post"
-                inputStyle={{ textAlignVertical: 'top' }}
+                style={{ flex: 3, minHeight: 40 }}
+                onChangeText={message => this.setState({ message })}
               />
               {this.renderButton()}
             </View>
@@ -110,8 +135,8 @@ RkTheme.setType(
       paddingLeft: 16,
     },
     paddingRight: 16,
-    flex: 1,
     underlineWidth: 0,
+    marginVertical: 0,
   })
 );
 
@@ -121,14 +146,14 @@ const styles = StyleSheet.create({
   },
   imageContainerStyle: {
     flex: 1,
-    paddingTop: 16,
+    paddingVertical: 16,
   },
   imageStyle: {
     flex: 1,
-    height: 300,
+    height: 250,
   },
   inputContainerStyle: {
-    flex: 1,
+    flex: 2,
     justifyContent: 'center',
   },
   buttonStyle: {

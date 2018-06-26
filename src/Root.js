@@ -42,6 +42,10 @@ class Root extends Component {
           this.props.loginSuccess(user);
         }
       });
+      require('firebase/firestore'); // eslint-disable-line global-require
+      const firestore = firebase.firestore();
+      const settings = { timestampsInSnapshots: true };
+      firestore.settings(settings);
     }
     this.props.loginAnonymously();
   }
