@@ -1,3 +1,4 @@
+import { ImageManipulator } from 'expo';
 import {
   PHOTO_SNAPPED,
   UPLOAD_PHOTO,
@@ -13,6 +14,32 @@ async function uploadFile(blob, name) {
     .child(name);
   const snapshot = await ref.put(blob);
   return snapshot.ref.getDownloadURL();
+}
+
+async function uploadPhotoBlob(photo, name) {
+  const response = await fetch(photo.uri);
+  const blob = await response.blob();
+  return uploadFile(blob, name);
+}
+
+async function createThumbnail(photo, maxSize, compress) {
+  let width;
+  let height;
+  if (photo.width > photo.height) {
+    width = Math.min(photo.width, maxSize);
+    height = (width / photo.width) * photo.height;
+  } else {
+    height = Math.min(photo.height, maxSize);
+    width = (height / photo.height) * photo.width;
+  }
+  return ImageManipulator.manipulate(
+    photo.uri,
+    [{ resize: { width, height } }],
+    {
+      format: 'png',
+      compress,
+    }
+  );
 }
 
 export const photoSnapped = ({ photo, navigation }) => {
@@ -32,11 +59,18 @@ export const uploadPhoto = ({
 }) => async dispatch => {
   dispatch({ type: UPLOAD_PHOTO });
   try {
-    // upload photo
-    const response = await fetch(photo.uri);
-    const blob = await response.blob();
-    const name = `images/${Date.now()}.${photo.uri.replace(/^.*\./, '')}`;
-    const url = await uploadFile(blob, name);
+    // upload photo and thumbnail
+    const name = `${Date.now()}`;
+    const photoName = `images/${user.uid}/${name}.png`;
+    const thumbName = `images/${user.uid}/thumb_${name}.png`;
+    const images = await Promise.all([
+      createThumbnail(photo, 1920, 0.7),
+      createThumbnail(photo, 480, 0.5),
+    ]);
+    const result = await Promise.all([
+      uploadPhotoBlob(images[0], photoName),
+      uploadPhotoBlob(images[1], thumbName),
+    ]);
     // write messaget to firestore
     const firebase = require('firebase'); // eslint-disable-line global-require
     require('firebase/firestore'); // eslint-disable-line global-require
@@ -46,8 +80,16 @@ export const uploadPhoto = ({
       title,
       category,
       message,
-      photo_url: url,
-      photo_name: name,
+      /* photo */
+      photo_name: photoName,
+      photo_url: result[0],
+      photo_width: images[0].width,
+      photo_height: images[0].height,
+      /* thumbnail */
+      thumb_name: thumbName,
+      thumb_url: result[1],
+      thumb_width: images[1].width,
+      thumb_height: images[1].height,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     console.log(`Document written: ${docRef.id}`);
