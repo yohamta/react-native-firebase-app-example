@@ -1,4 +1,9 @@
-import { PHOTO_SNAPPED, UPLOAD_PHOTO } from './types';
+import {
+  PHOTO_SNAPPED,
+  UPLOAD_PHOTO,
+  UPLOAD_PHOTO_FAIL,
+  UPLOAD_PHOTO_SUCCESS,
+} from './types';
 
 async function uploadFile(blob, name) {
   const firebase = require('firebase'); // eslint-disable-line global-require
@@ -18,12 +23,29 @@ export const photoSnapped = ({ photo, navigation }) => {
   };
 };
 
-export const uploadPhoto = ({ photo, message }) => async dispatch => {
+export const uploadPhoto = ({ photo, message, user }) => async dispatch => {
   dispatch({ type: UPLOAD_PHOTO });
-  const response = await fetch(photo.uri);
-  const blob = await response.blob();
-  const ext = photo.uri.replace(/^.*\./, '');
-  const basename = Date.now();
-  const url = await uploadFile(blob, `${basename}.${ext}`);
-  console.log(url);
+  try {
+    // upload photo
+    const response = await fetch(photo.uri);
+    const blob = await response.blob();
+    const ext = photo.uri.replace(/^.*\./, '');
+    const basename = Date.now();
+    const url = await uploadFile(blob, `${basename}.${ext}`);
+    console.log(url);
+    // write messaget to firestore
+    const firebase = require('firebase'); // eslint-disable-line global-require
+    require('firebase/firestore'); // eslint-disable-line global-require
+    const db = firebase.firestore();
+    const docRef = await db.collection('paintings').add({
+      uid: user.uid,
+      message,
+      photo_url: url,
+    });
+    console.log(`Document written: ${docRef.id}`);
+    dispatch({ type: UPLOAD_PHOTO_SUCCESS });
+  } catch (err) {
+    console.log('err:', err);
+    dispatch({ type: UPLOAD_PHOTO_FAIL, payload: err });
+  }
 };

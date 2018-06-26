@@ -19,6 +19,7 @@ class PostScreen extends Component {
     this.props.uploadPhoto({
       photo: this.props.photo,
       message: 'hello',
+      user: this.props.user,
     });
   }
 
@@ -90,6 +91,8 @@ PostScreen.propTypes = {
     uri: PropTypes.string.isRequired,
   }),
   uploadPhoto: PropTypes.func.isRequired,
+  uploading: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 PostScreen.defaultProps = {
   photo: null,
@@ -136,6 +139,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   photo: state.photo.photo,
   uploading: state.photo.uploading,
+  user: state.auth.user,
 });
 
 export default connect(
