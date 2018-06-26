@@ -12,11 +12,11 @@ import { RkButton, RkTextInput, RkTheme } from 'react-native-ui-kitten';
 import { Spinner } from '../common/components';
 import StyleSheet from '../common/StyleSheet';
 import { createObject } from '../common/Functions';
-import { postAPhoto } from '../actions';
+import { uploadPhoto } from '../actions';
 
 class PostScreen extends Component {
   onPress() {
-    this.props.postAPhoto({
+    this.props.uploadPhoto({
       photo: this.props.photo,
       message: 'hello',
     });
@@ -27,13 +27,28 @@ class PostScreen extends Component {
     Keyboard.dismiss();
   }
 
+  renderButton() {
+    const { buttonStyle } = styles;
+    if (this.props.uploading) {
+      return <Spinner style={{ alignSelf: 'center' }} />;
+    }
+    return (
+      <RkButton
+        rkType="rounded"
+        onPress={this.onPress.bind(this)}
+        style={buttonStyle}
+      >
+        Post
+      </RkButton>
+    );
+  }
+
   render() {
     const {
       containerStyle,
       imageContainerStyle,
       imageStyle,
       inputContainerStyle,
-      buttonStyle,
     } = styles;
     if (this.props.photo == null) {
       return (
@@ -60,13 +75,7 @@ class PostScreen extends Component {
                 rkType="post"
                 inputStyle={{ textAlignVertical: 'top' }}
               />
-              <RkButton
-                rkType="rounded"
-                onPress={this.onPress.bind(this)}
-                style={buttonStyle}
-              >
-                Post
-              </RkButton>
+              {this.renderButton()}
             </View>
             <View style={{ height: 100 }} />
           </View>
@@ -80,15 +89,11 @@ PostScreen.propTypes = {
   photo: PropTypes.shape({
     uri: PropTypes.string.isRequired,
   }),
-  postAPhoto: PropTypes.func.isRequired,
+  uploadPhoto: PropTypes.func.isRequired,
 };
 PostScreen.defaultProps = {
   photo: null,
 };
-
-const mapStateToProps = state => ({
-  photo: state.photo.photo,
-});
 
 RkTheme.setType(
   'RkTextInput',
@@ -128,7 +133,12 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapStateToProps = state => ({
+  photo: state.photo.photo,
+  uploading: state.photo.uploading,
+});
+
 export default connect(
   mapStateToProps,
-  { postAPhoto }
+  { uploadPhoto }
 )(PostScreen);
