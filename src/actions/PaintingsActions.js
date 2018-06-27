@@ -1,6 +1,6 @@
-import { TIMELINE_FETCH_SUCCESS } from './types';
+import { PAINTINGS_FETCH_SUCCESS } from './types';
 
-export const fetchTimeline = () => async dispatch => {
+export const fetchPaintings = () => async dispatch => {
   try {
     const firebase = require('firebase'); // eslint-disable-line global-require
     require('firebase/firestore'); // eslint-disable-line global-require
@@ -15,7 +15,7 @@ export const fetchTimeline = () => async dispatch => {
       paintings.push(doc.data());
     });
     dispatch({
-      type: TIMELINE_FETCH_SUCCESS,
+      type: PAINTINGS_FETCH_SUCCESS,
       payload: paintings,
     });
   } catch (err) {

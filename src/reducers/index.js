@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import PhotoReducer from './PhotoReducer';
 import AuthReducer from './AuthReducer';
-import TimelineReducer from './TimelineReducer';
+import PaintingsReducer from './PaintingsReducer';
 
 export default combineReducers({
   photo: PhotoReducer,
   auth: AuthReducer,
-  timeline: TimelineReducer,
+  paintings: PaintingsReducer,
 });
