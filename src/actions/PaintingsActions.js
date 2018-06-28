@@ -1,8 +1,9 @@
 import {
+  PAINTINGS_FETCH,
   PAINTINGS_FETCH_SUCCESS,
+  PAINTINGS_FETCH_ADD,
   PAINTINGS_FETCH_NEXT,
   PAINTINGS_FETCH_ERROR,
-  PAINTINGS_SUBSCRIBE_ADDED,
 } from './types';
 
 const parseDoc = doc => ({
@@ -18,7 +19,7 @@ const parseSnapshots = querySnapshot => {
   return paintings;
 };
 
-const FETCH_LIMIT = 5;
+const FETCH_LIMIT = 3;
 
 export const fetchNextPaintings = lastVisible => async dispatch => {
   try {
@@ -47,7 +48,9 @@ export const fetchNextPaintings = lastVisible => async dispatch => {
 
 export const fetchPaintings = () => async dispatch => {
   try {
-    // get timeline
+    dispatch({
+      type: PAINTINGS_FETCH,
+    });
     const firebase = require('firebase'); // eslint-disable-line global-require
     require('firebase/firestore'); // eslint-disable-line global-require
     const db = firebase.firestore();
@@ -61,20 +64,20 @@ export const fetchPaintings = () => async dispatch => {
       payload: parseSnapshots(snapshots),
       lastVisible: snapshots.docs[snapshots.docs.length - 1],
     });
-    // subscribe changes
+
+    // subscribe local changes
     query.endBefore(snapshots.docs[0]).onSnapshot(snapshotsAdded => {
       const paintingsAdded = [];
       snapshotsAdded.docChanges().forEach(change => {
         console.log({ change });
-        if (change.type === 'added') {
+        if (change.type === 'added' && change.doc.metadata.hasPendingWrites) {
           paintingsAdded.push(parseDoc(change.doc));
         }
       });
       if (paintingsAdded.length > 0) {
         dispatch({
-          type: PAINTINGS_SUBSCRIBE_ADDED,
+          type: PAINTINGS_FETCH_ADD,
           payload: parseSnapshots(snapshotsAdded),
-          lastVisible: snapshots.docs[snapshots.docs.length - 1],
         });
       }
     });

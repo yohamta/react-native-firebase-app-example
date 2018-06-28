@@ -51,6 +51,7 @@ export const photoSnapped = ({ photo, navigation }) => {
 };
 
 export const uploadPhoto = ({
+  navigation,
   photo,
   title,
   category,
@@ -96,6 +97,7 @@ export const uploadPhoto = ({
     });
     console.log(`Document written: ${docRef.id}`);
     dispatch({ type: UPLOAD_PHOTO_SUCCESS });
+    navigation.navigate('Timeline');
   } catch (err) {
     console.log('err:', err);
     dispatch({ type: UPLOAD_PHOTO_FAIL, payload: err });

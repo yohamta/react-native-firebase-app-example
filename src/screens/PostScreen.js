@@ -23,6 +23,7 @@ class PostScreen extends Component {
 
   onPress() {
     this.props.uploadPhoto({
+      navigation: this.props.navigation,
       photo: this.props.photo,
       title: this.state.title,
       category: this.state.category,
@@ -118,6 +119,9 @@ PostScreen.propTypes = {
   uploadPhoto: PropTypes.func.isRequired,
   uploading: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 PostScreen.defaultProps = {
   photo: null,

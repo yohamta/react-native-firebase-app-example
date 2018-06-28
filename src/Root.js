@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FontAwesome } from '@expo/vector-icons'; // eslint-disable-line
 import { TimelineScreen, HomeScreen, PostScreen } from './screens';
-import { loginSuccess, loginAnonymously } from './actions';
+import { loginSuccess } from './actions';
 
 const navigationOptions = {
   headerTitle: 'Paintings',
@@ -97,7 +97,6 @@ class Root extends Component {
       const settings = { timestampsInSnapshots: true };
       firestore.settings(settings);
     }
-    this.props.loginAnonymously();
   }
 
   render() {
@@ -107,10 +106,9 @@ class Root extends Component {
 
 Root.propTypes = {
   loginSuccess: PropTypes.func.isRequired,
-  loginAnonymously: PropTypes.func.isRequired,
 };
 
 export default connect(
   null,
-  { loginSuccess, loginAnonymously },
+  { loginSuccess },
 )(Root);
