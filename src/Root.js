@@ -72,7 +72,7 @@ const RootStack = createStackNavigator(
   },
   {
     transitionConfig,
-  },
+  }
 );
 
 class Root extends Component {
@@ -110,5 +110,5 @@ Root.propTypes = {
 
 export default connect(
   null,
-  { loginSuccess },
+  { loginSuccess }
 )(Root);
