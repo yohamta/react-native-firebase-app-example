@@ -46,7 +46,7 @@ const RootStack = createStackNavigator(
             <FontAwesome.Button
               name="plus-square"
               size={32}
-              backgroundColor="#fff"
+              backgroundColor="rgba(0,0,0,0)"
               color="#a167bf"
               onPress={() => {
                 navigation.navigation.navigate('Home');
@@ -72,7 +72,7 @@ const RootStack = createStackNavigator(
   },
   {
     transitionConfig,
-  }
+  },
 );
 
 class Root extends Component {
@@ -112,5 +112,5 @@ Root.propTypes = {
 
 export default connect(
   null,
-  { loginSuccess, loginAnonymously }
+  { loginSuccess, loginAnonymously },
 )(Root);

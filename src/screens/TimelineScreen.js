@@ -4,46 +4,57 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { RkCard } from 'react-native-ui-kitten';
 import { fetchPaintings } from '../actions';
-import { Spinner } from '../common/components';
 
 class Timeline extends Component {
   componentWillMount() {
     this.props.fetchPaintings();
   }
 
-  renderItem({ item }) {
-    return (
-      <RkCard style={{ marginBottom: 10 }}>
-        <View rkCardHeader>
-          <Text>{item.title}</Text>
-        </View>
-        <Image rkCardImg source={{ uri: item.thumb_url }} />
-        <View rkCardFooter>
-          <Text>{item.message}</Text>
-        </View>
-      </RkCard>
-    );
-  }
+  onEndReached = () => {
+    return 1;
+  };
+
+  keyExtractor = item => item.id;
+
+  renderItem = ({ item }) => (
+    <RkCard style={{ marginBottom: 10 }}>
+      <View rkCardHeader>
+        <Text>{item.title}</Text>
+      </View>
+      <Image rkCardImg source={{ uri: item.thumb_url }} />
+      <View rkCardFooter>
+        <Text>{item.message}</Text>
+      </View>
+    </RkCard>
+  );
 
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <FlatList data={this.props.paintings} renderItem={this.renderItem} />
+        <FlatList
+          data={this.props.paintings}
+          renderItem={this.renderItem}
+          keyExtractor={this.keyExtractor}
+        />
       </View>
     );
   }
 }
 
 Timeline.propTypes = {
-  fetchPaintings: PropTypes.func.isRequired
+  fetchPaintings: PropTypes.func.isRequired,
+  paintings: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      thumb_url: PropTypes.string.isRequired,
+      message: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
-const mapStateToProps = state => {
-  console.log(state);
-  return {
-    paintings: state.paintings.paintings
-  };
-};
+const mapStateToProps = state => ({
+  paintings: state.paintings.paintings,
+});
 
 export default connect(
   mapStateToProps,
