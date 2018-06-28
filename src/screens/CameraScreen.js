@@ -41,8 +41,6 @@ class CameraScreen extends Component {
       this.camera
         .takePictureAsync()
         .then(photo => {
-          console.log('Taking Picture Success!');
-          console.log(photo);
           this.setState({
             loading: false,
           });
@@ -52,7 +50,6 @@ class CameraScreen extends Component {
           });
         })
         .catch(err => {
-          console.log('Taking Picture Fail!');
           console.log('err:', err);
           this.setState({
             loading: false,

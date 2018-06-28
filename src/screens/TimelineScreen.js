@@ -79,14 +79,11 @@ Timeline.propTypes = {
   ).isRequired,
 };
 
-const mapStateToProps = state => {
-  console.log(state);
-  return {
-    paintings: state.paintings.paintings,
-    lastVisible: state.paintings.lastVisible,
-    loading: state.paintings.loading,
-  };
-};
+const mapStateToProps = state => ({
+  paintings: state.paintings.paintings,
+  lastVisible: state.paintings.lastVisible,
+  loading: state.paintings.loading,
+});
 
 export default connect(
   mapStateToProps,

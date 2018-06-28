@@ -95,7 +95,6 @@ export const uploadPhoto = ({
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
-    console.log(`Document written: ${docRef.id}`);
     dispatch({ type: UPLOAD_PHOTO_SUCCESS });
     navigation.navigate('Timeline');
   } catch (err) {

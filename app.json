@@ -1,5 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "name": "rn-paintings",
+    "icon": "./ic_launcher.png",
+    "version": "1.0.0",
+    "slug": "rn-paintings",
+    "sdkVersion": "27.0.0",
+    "android": {
+      "package": "com.hayo0914.rnpaintings"
+    },
+    "ios": {
+      "bundleIdentifier": "com.hayo0914.rnpaintings"
+    }
   }
 }

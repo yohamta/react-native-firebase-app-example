@@ -69,7 +69,6 @@ export const fetchPaintings = () => async dispatch => {
     query.endBefore(snapshots.docs[0]).onSnapshot(snapshotsAdded => {
       const paintingsAdded = [];
       snapshotsAdded.docChanges().forEach(change => {
-        console.log({ change });
         if (change.type === 'added' && change.doc.metadata.hasPendingWrites) {
           paintingsAdded.push(parseDoc(change.doc));
         }

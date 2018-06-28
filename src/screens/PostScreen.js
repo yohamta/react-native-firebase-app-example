@@ -33,7 +33,6 @@ class PostScreen extends Component {
   }
 
   onPressHideKeyboard() {
-    console.log('onPressHideKeyboard');
     Keyboard.dismiss();
   }
 

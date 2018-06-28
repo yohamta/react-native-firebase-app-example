@@ -11,7 +11,6 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log({ state, action });
   switch (action.type) {
     case PHOTO_SNAPPED:
       return {
