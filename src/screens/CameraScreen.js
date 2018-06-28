@@ -8,7 +8,7 @@ import { Spinner } from '../common/components';
 import StyleSheet from '../common/StyleSheet';
 import { photoSnapped } from '../actions';
 
-class HomeScreen extends Component {
+class CameraScreen extends Component {
   camera = null;
 
   state = {
@@ -107,7 +107,7 @@ class HomeScreen extends Component {
     );
   }
 }
-HomeScreen.propTypes = {
+CameraScreen.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
@@ -136,4 +136,4 @@ const styles = StyleSheet.create({
 export default connect(
   null,
   { photoSnapped }
-)(HomeScreen);
+)(CameraScreen);
