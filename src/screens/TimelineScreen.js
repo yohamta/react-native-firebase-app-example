@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Image } from 'react-native';
+import { View, FlatList, Image, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { RkCard, RkText } from 'react-native-ui-kitten';
@@ -23,50 +23,60 @@ class Timeline extends Component {
 
   keyExtractor = item => item.id;
 
-  renderItem = ({ item }) => (
-    <RkCard style={{ margin: 0, padding: 0, backgroundColor: 'black' }}>
-      <Image
-        rkCardImg
-        imgContainerStyle={{ backgroundColor: 'black' }}
-        source={{ uri: item.thumb_url }}
-        style={{ height: 400, marginBottom: 0, padding: 0 }}
-      />
-      <View
-        rkCardImgOverlay
-        rkCardContent
-        style={{
-          height: 400,
-          flexDirection: 'column',
-          justifyContent: 'flex-end',
-          margin: 0,
-          padding: 0,
+  renderItem({ item }) {
+    const { navigate } = this.props.navigation;
+    return (
+      <TouchableWithoutFeedback
+        onPress={() => {
+          console.log({item});
+          navigate('Detail', { item });
         }}
       >
-        <RkText
-          style={{
-            color: 'white',
-            textAlign: 'right',
-            textShadowColor: 'black',
-            textShadowOffset: { width: 2, height: 2 },
-            textShadowRadius: 2,
-          }}
-        >
-          {item.message}
-        </RkText>
-        <RkText
-          style={{
-            color: 'white',
-            textAlign: 'right',
-            textShadowColor: 'black',
-            textShadowOffset: { width: 2, height: 2 },
-            textShadowRadius: 2,
-          }}
-        >
-          {item.title}
-        </RkText>
-      </View>
-    </RkCard>
-  );
+        <RkCard style={{ margin: 0, padding: 0, backgroundColor: 'black' }}>
+          <Image
+            rkCardImg
+            imgContainerStyle={{ backgroundColor: 'black' }}
+            source={{ uri: item.thumb_url }}
+            style={{ height: 400, marginBottom: 0, padding: 0 }}
+          />
+          <View
+            rkCardImgOverlay
+            rkCardContent
+            style={{
+              height: 400,
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              margin: 0,
+              padding: 0,
+            }}
+          >
+            <RkText
+              style={{
+                color: 'white',
+                textAlign: 'right',
+                textShadowColor: 'black',
+                textShadowOffset: { width: 2, height: 2 },
+                textShadowRadius: 2,
+              }}
+            >
+              {item.message}
+            </RkText>
+            <RkText
+              style={{
+                color: 'white',
+                textAlign: 'right',
+                textShadowColor: 'black',
+                textShadowOffset: { width: 2, height: 2 },
+                textShadowRadius: 2,
+              }}
+            >
+              {item.title}
+            </RkText>
+          </View>
+        </RkCard>
+      </TouchableWithoutFeedback>
+    );
+  }
 
   render() {
     if (this.props.loading && this.props.paintings.length === 0) {
@@ -111,6 +121,9 @@ Timeline.propTypes = {
       message: PropTypes.string.isRequired,
     })
   ).isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({

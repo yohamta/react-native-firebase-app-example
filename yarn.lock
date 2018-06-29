@@ -6266,6 +6266,22 @@ react-native-gesture-handler@1.0.0-alpha.41:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
+react-native-gesture-responder@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-gesture-responder/-/react-native-gesture-responder-0.1.1.tgz#802552d8eb7153c0d81a396e98f4b80b404b6798"
+  dependencies:
+    react-timer-mixin "^0.13.3"
+
+react-native-image-pan-zoom@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.6.tgz#9f5832055695813e95aa87f08a88996927f84ad0"
+
+react-native-image-zoom-viewer@^2.2.8:
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/react-native-image-zoom-viewer/-/react-native-image-zoom-viewer-2.2.8.tgz#da4bf37c15fd677c8bb1673a493ffd4561f312d4"
+  dependencies:
+    react-native-image-pan-zoom "^2.1.6"
+
 react-native-maps@0.21.0:
   version "0.21.0"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.21.0.tgz#005f58e93d7623ad59667e8002101970ddf235c2"
@@ -6311,6 +6327,10 @@ react-native-scripts@1.14.0:
     rimraf "^2.6.1"
     xdl "48.1.4"
 
+react-native-scroller@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-scroller/-/react-native-scroller-0.0.6.tgz#dea8c89bd1ca2d2445fbb6b3a90960df6c1767ff"
+
 react-native-svg-web@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-native-svg-web/-/react-native-svg-web-1.0.1.tgz#16e1784077b6e5b6c7ebd9c3829e6684211cba99"
@@ -6337,6 +6357,12 @@ react-native-tab-view@^1.0.0:
   dependencies:
     prop-types "^15.6.1"
 
+react-native-transformable-image@^0.0.18:
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/react-native-transformable-image/-/react-native-transformable-image-0.0.18.tgz#00229f2410c443a3a6b5fa53714121ecd882396f"
+  dependencies:
+    react-native-view-transformer "0.0.28"
+
 react-native-ui-kitten@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/react-native-ui-kitten/-/react-native-ui-kitten-3.0.1.tgz#b0d3f7f5cee4144e629d6506267b44c03b535801"
@@ -6351,6 +6377,13 @@ react-native-vector-icons@4.5.0:
     lodash "^4.0.0"
     prop-types "^15.5.10"
     yargs "^8.0.2"
+
+react-native-view-transformer@0.0.28:
+  version "0.0.28"
+  resolved "https://registry.yarnpkg.com/react-native-view-transformer/-/react-native-view-transformer-0.0.28.tgz#01bb8c9e6cfff70a8d400e061c0cd27602662acb"
+  dependencies:
+    react-native-gesture-responder "0.1.1"
+    react-native-scroller "0.0.6"
 
 react-native-web-maps@^0.1.0:
   version "0.1.0"
@@ -6499,7 +6532,7 @@ react-test-renderer@^16.3.1:
     prop-types "^15.6.0"
     react-is "^16.4.1"
 
-react-timer-mixin@^0.13.2:
+react-timer-mixin@^0.13.2, react-timer-mixin@^0.13.3:
   version "0.13.3"
   resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.3.tgz#0da8b9f807ec07dc3e854d082c737c65605b3d22"
 

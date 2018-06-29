@@ -2,7 +2,12 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import { View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; // eslint-disable-line
-import { TimelineScreen, CameraScreen, PostScreen } from './screens';
+import {
+  TimelineScreen,
+  CameraScreen,
+  PostScreen,
+  DetailScreen,
+} from './screens';
 import transitionConfig from './common/TransitionConfig';
 
 const navigationOptions = {
@@ -47,6 +52,10 @@ export default createStackNavigator(
     },
     Post: {
       screen: PostScreen,
+      navigationOptions,
+    },
+    Detail: {
+      screen: DetailScreen,
       navigationOptions,
     },
   },
