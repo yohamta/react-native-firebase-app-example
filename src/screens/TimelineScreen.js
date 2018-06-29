@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, Image } from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { RkCard } from 'react-native-ui-kitten';
+import { RkCard, RkModalImg } from 'react-native-ui-kitten';
 import { fetchPaintings, fetchNextPaintings } from '../actions';
 import { Spinner } from '../common/components';
 
@@ -28,7 +34,11 @@ class Timeline extends Component {
       <View rkCardHeader>
         <Text>{item.title}</Text>
       </View>
-      <Image rkCardImg source={{ uri: item.thumb_url }} />
+      <RkModalImg
+        imgContainerStyle={{ backgroundColor: 'black' }}
+        rkCardImg
+        source={{ uri: item.thumb_url }}
+      />j
       <View rkCardFooter>
         <Text>{item.message}</Text>
       </View>
@@ -53,7 +63,7 @@ class Timeline extends Component {
       <View style={{ flex: 1 }}>
         <FlatList
           data={this.props.paintings}
-          renderItem={this.renderItem}
+          renderItem={this.renderItem.bind(this)}
           keyExtractor={this.keyExtractor}
           onEndReached={this.onEndReached}
           onEndReachedThreshold={0.5}

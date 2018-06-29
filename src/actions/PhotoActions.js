@@ -76,7 +76,7 @@ export const uploadPhoto = ({
     const firebase = require('firebase'); // eslint-disable-line global-require
     require('firebase/firestore'); // eslint-disable-line global-require
     const db = firebase.firestore();
-    const docRef = await db.collection('paintings').add({
+    await db.collection('paintings').add({
       uid: user.uid,
       title,
       category,

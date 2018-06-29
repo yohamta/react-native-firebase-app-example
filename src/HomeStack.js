@@ -26,6 +26,7 @@ export default createStackNavigator(
               name="plus-square"
               size={32}
               backgroundColor="rgba(0,0,0,0)"
+              underlayColor="rgba(0,0,0,0)"
               color="#a167bf"
               onPress={() => {
                 navigation.navigation.navigate('Home');

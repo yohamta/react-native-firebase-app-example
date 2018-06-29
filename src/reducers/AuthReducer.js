@@ -1,10 +1,11 @@
 import { LOGIN_SUCCESS } from '../actions/types';
 
 const INITIAL_STATE = {
-  user: null,
-  isAnonymous: false,
-  name: 'Anonymous Painter',
-  bio: 'Just another enthusiastic painter.',
+  user: {
+    displayName: 'Anonymous painter',
+    photoURL: 'https://gyazo.com/4cfdbad9998d01b6155ffbf4b316c7ba',
+  },
+  isLoggedIn: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -13,7 +14,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         user: action.payload,
-        isAnonymous: action.payload.isAnonymous,
+        isLoggedIn: true,
       };
     default:
       return state;
