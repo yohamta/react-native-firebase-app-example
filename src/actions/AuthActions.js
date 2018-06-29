@@ -1,5 +1,5 @@
 import Expo from 'expo';
-import { LOGIN_SUCCESS } from './types';
+import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from './types';
 
 export const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
@@ -18,6 +18,17 @@ export const loginWithFacebook = () => async () => {
       await firebase.auth().signInAndRetrieveDataWithCredential(credential);
     }
     console.log('User Logged In!');
+  } catch (err) {
+    console.log('err:', err);
+  }
+};
+
+export const logout = () => async dispatch => {
+  try {
+    const firebase = require('firebase'); // eslint-disable-line global-require
+    await firebase.auth().signOut();
+    console.log('User Logged Out!');
+    dispatch({ type: LOGOUT_SUCCESS });
   } catch (err) {
     console.log('err:', err);
   }

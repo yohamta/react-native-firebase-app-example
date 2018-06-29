@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { Font } from 'expo';
 import { View, Image } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; // eslint-disable-line
-import { RkCard, RkText } from 'react-native-ui-kitten';
+import { RkCard, RkText, RkButton } from 'react-native-ui-kitten';
 import PropTypes from 'prop-types';
-import { loginWithFacebook } from '../actions';
+import { loginWithFacebook, logout } from '../actions';
+import { FBLoginButton } from '../common/components';
 
 class ProfileScreen extends Component {
   async componentDidMount() {
@@ -16,25 +17,26 @@ class ProfileScreen extends Component {
     this.props.loginWithFacebook();
   }
 
+  logout() {
+    this.props.logout();
+  }
+
   renderLoginButton() {
     if (this.props.isLoggedIn) {
-      return <View />;
+      return (
+        <View style={{ margin: 10 }}>
+          <RkButton
+            onPress={this.logout.bind(this)}
+            rkType="rounded small info"
+          >
+            Log Out
+          </RkButton>
+        </View>
+      );
     }
     return (
       <View style={{ margin: 10 }}>
-        <FontAwesome.Button
-          name="facebook"
-          backgroundColor="#4360B5"
-          color="#fff"
-          onPress={() => {
-            this.loginWithFacebook();
-          }}
-          style={{ alignSelf: 'center' }}
-          underlayColor="#4360B5"
-          activeOpacity={1}
-        >
-          Login with Facebook
-        </FontAwesome.Button>
+        <FBLoginButton onPress={this.loginWithFacebook.bind(this)} />
       </View>
     );
   }
@@ -66,6 +68,7 @@ ProfileScreen.propTypes = {
   }).isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   loginWithFacebook: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -75,5 +78,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginWithFacebook }
+  { loginWithFacebook, logout }
 )(ProfileScreen);

@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { View, FlatList, Image } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { RkCard, RkModalImg } from 'react-native-ui-kitten';
+import { RkCard, RkText } from 'react-native-ui-kitten';
 import { fetchPaintings, fetchNextPaintings } from '../actions';
 import { Spinner } from '../common/components';
 
@@ -30,17 +24,46 @@ class Timeline extends Component {
   keyExtractor = item => item.id;
 
   renderItem = ({ item }) => (
-    <RkCard style={{ marginBottom: 10 }}>
-      <View rkCardHeader>
-        <Text>{item.title}</Text>
-      </View>
-      <RkModalImg
-        imgContainerStyle={{ backgroundColor: 'black' }}
+    <RkCard style={{ margin: 0, padding: 0, backgroundColor: 'black' }}>
+      <Image
         rkCardImg
+        imgContainerStyle={{ backgroundColor: 'black' }}
         source={{ uri: item.thumb_url }}
-      />j
-      <View rkCardFooter>
-        <Text>{item.message}</Text>
+        style={{ height: 400, marginBottom: 0, padding: 0 }}
+      />
+      <View
+        rkCardImgOverlay
+        rkCardContent
+        style={{
+          height: 400,
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
+          margin: 0,
+          padding: 0,
+        }}
+      >
+        <RkText
+          style={{
+            color: 'white',
+            textAlign: 'right',
+            textShadowColor: 'black',
+            textShadowOffset: { width: 2, height: 2 },
+            textShadowRadius: 2,
+          }}
+        >
+          {item.message}
+        </RkText>
+        <RkText
+          style={{
+            color: 'white',
+            textAlign: 'right',
+            textShadowColor: 'black',
+            textShadowOffset: { width: 2, height: 2 },
+            textShadowRadius: 2,
+          }}
+        >
+          {item.title}
+        </RkText>
       </View>
     </RkCard>
   );
@@ -69,6 +92,7 @@ class Timeline extends Component {
           onEndReachedThreshold={0.5}
           onRefresh={this.onRefresh}
           refreshing={this.props.loading}
+          style={{ backgroundColor: 'gray' }}
         />
       </View>
     );

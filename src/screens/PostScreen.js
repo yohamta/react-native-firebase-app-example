@@ -9,10 +9,10 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { RkButton, RkTextInput, RkTheme } from 'react-native-ui-kitten';
-import { Spinner } from '../common/components';
+import { Spinner, FBLoginButton } from '../common/components';
 import StyleSheet from '../common/StyleSheet';
 import { createObject } from '../common/Functions';
-import { uploadPhoto } from '../actions';
+import { uploadPhoto, loginWithFacebook } from '../actions';
 
 class PostScreen extends Component {
   state = {
@@ -28,7 +28,8 @@ class PostScreen extends Component {
       title: this.state.title,
       category: this.state.category,
       message: this.state.message,
-      user: this.props.user,
+      uid: this.props.user.uid,
+      authorName: this.props.user.displayName,
     });
   }
 
@@ -36,8 +37,18 @@ class PostScreen extends Component {
     Keyboard.dismiss();
   }
 
+  loginWithFacebook() {
+    this.props.loginWithFacebook();
+  }
+
   renderButton() {
-    const { buttonStyle } = styles;
+    if (!this.props.isLoggedIn) {
+      return (
+        <View style={{ marginHorizontal: 16 }}>
+          <FBLoginButton onPress={this.loginWithFacebook.bind(this)} />
+        </View>
+      );
+    }
     if (this.props.uploading) {
       return (
         <View style={{ height: 40 }}>
@@ -49,7 +60,7 @@ class PostScreen extends Component {
       <RkButton
         rkType="rounded"
         onPress={this.onPress.bind(this)}
-        style={buttonStyle}
+        style={styles.buttonStyle}
       >
         Post
       </RkButton>
@@ -117,10 +128,15 @@ PostScreen.propTypes = {
   }),
   uploadPhoto: PropTypes.func.isRequired,
   uploading: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  loginWithFacebook: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    uid: PropTypes.string.isRequired,
+    displayName: PropTypes.string.isRequired,
+  }).isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
 };
 PostScreen.defaultProps = {
   photo: null,
@@ -168,9 +184,10 @@ const mapStateToProps = state => ({
   photo: state.photo.photo,
   uploading: state.photo.uploading,
   user: state.auth.user,
+  isLoggedIn: state.auth.isLoggedIn,
 });
 
 export default connect(
   mapStateToProps,
-  { uploadPhoto }
+  { uploadPhoto, loginWithFacebook }
 )(PostScreen);

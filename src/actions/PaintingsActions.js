@@ -23,6 +23,9 @@ const FETCH_LIMIT = 3;
 
 export const fetchNextPaintings = lastVisible => async dispatch => {
   try {
+    dispatch({
+      type: PAINTINGS_FETCH,
+    });
     const firebase = require('firebase'); // eslint-disable-line global-require
     require('firebase/firestore'); // eslint-disable-line global-require
     const db = firebase.firestore();

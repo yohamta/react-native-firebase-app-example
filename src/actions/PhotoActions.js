@@ -56,14 +56,15 @@ export const uploadPhoto = ({
   title,
   category,
   message,
-  user,
+  uid,
+  authorName,
 }) => async dispatch => {
   dispatch({ type: UPLOAD_PHOTO });
   try {
     // upload photo and thumbnail
     const name = `${Date.now()}`;
-    const photoName = `images/${user.uid}/${name}.png`;
-    const thumbName = `images/${user.uid}/thumb_${name}.png`;
+    const photoName = `images/${uid}/${name}.png`;
+    const thumbName = `images/${uid}/thumb_${name}.png`;
     const images = await Promise.all([
       createThumbnail(photo, 1920, 0.7),
       createThumbnail(photo, 480, 0.5),
@@ -77,7 +78,8 @@ export const uploadPhoto = ({
     require('firebase/firestore'); // eslint-disable-line global-require
     const db = firebase.firestore();
     await db.collection('paintings').add({
-      uid: user.uid,
+      uid,
+      authorName,
       title,
       category,
       message,
