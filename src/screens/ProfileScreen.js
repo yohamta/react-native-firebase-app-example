@@ -4,6 +4,7 @@ import { Font } from 'expo';
 import { View, Image } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; // eslint-disable-line
 import { RkCard, RkText, RkButton } from 'react-native-ui-kitten';
+import { StyleSheet } from 'react-native-stylesheet-merge';
 import PropTypes from 'prop-types';
 import { loginWithFacebook, logout } from '../actions';
 import { FBLoginButton } from '../common/components';
@@ -24,7 +25,7 @@ class ProfileScreen extends Component {
   renderLoginButton() {
     if (this.props.isLoggedIn) {
       return (
-        <View style={{ margin: 10 }}>
+        <View style={styles.buttonContainerStyle}>
           <RkButton
             onPress={this.logout.bind(this)}
             rkType="rounded small info"
@@ -35,7 +36,7 @@ class ProfileScreen extends Component {
       );
     }
     return (
-      <View style={{ margin: 10 }}>
+      <View style={styles.buttonContainerStyle}>
         <FBLoginButton onPress={this.loginWithFacebook.bind(this)} />
       </View>
     );
@@ -44,12 +45,10 @@ class ProfileScreen extends Component {
   render() {
     const { displayName, photoURL } = this.props.user;
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.containerStyle}>
         <RkCard>
           <View rkCardContent>
-            <RkText style={{ fontSize: 28, fontWeight: 'bold' }}>
-              {displayName}
-            </RkText>
+            <RkText style={styles.textStyle}>{displayName}</RkText>
           </View>
           <View rkCardContent>
             <Image rkCardImg source={{ uri: `${photoURL}?type=large` }} />
@@ -70,6 +69,17 @@ ProfileScreen.propTypes = {
   loginWithFacebook: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
 };
+
+const styles = StyleSheet.create({
+  containerStyle: { flex: 1 },
+  buttonContainerStyle: {
+    margin: 10,
+  },
+  textStyle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+  },
+});
 
 const mapStateToProps = state => ({
   user: state.auth.user,

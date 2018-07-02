@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
-import { View, FlatList, Image, TouchableWithoutFeedback } from 'react-native';
+import {
+  View,
+  FlatList,
+  Image,
+  TouchableWithoutFeedback,
+  Dimensions,
+} from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { RkCard, RkText } from 'react-native-ui-kitten';
+import { StyleSheet } from 'react-native-stylesheet-merge';
 import { fetchPaintings, fetchNextPaintings } from '../actions';
 import { Spinner } from '../common/components';
 
@@ -25,52 +32,30 @@ class Timeline extends Component {
 
   renderItem({ item }) {
     const { navigate } = this.props.navigation;
+    const {
+      cardStyle,
+      imgContainerStyle,
+      imgStyle,
+      cardContentStyle,
+      textStyle,
+    } = styles;
     return (
       <TouchableWithoutFeedback
         onPress={() => {
           navigate('Detail', { item });
         }}
       >
-        <RkCard style={{ margin: 0, padding: 0, backgroundColor: 'black' }}>
+        <RkCard style={cardStyle}>
           <Image
             rkCardImg
-            imgContainerStyle={{ backgroundColor: 'black' }}
+            imgContainerStyle={imgContainerStyle}
             source={{ uri: item.thumbUrl }}
-            style={{ height: 400, marginBottom: 0, padding: 0 }}
+            resizeMode="cover"
+            style={imgStyle}
           />
-          <View
-            rkCardImgOverlay
-            rkCardContent
-            style={{
-              height: 400,
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              margin: 0,
-              padding: 0,
-            }}
-          >
-            <RkText
-              style={{
-                color: 'white',
-                textAlign: 'right',
-                textShadowColor: 'black',
-                textShadowOffset: { width: 2, height: 2 },
-                textShadowRadius: 2,
-              }}
-            >
-              {item.message}
-            </RkText>
-            <RkText
-              style={{
-                color: 'white',
-                textAlign: 'right',
-                textShadowColor: 'black',
-                textShadowOffset: { width: 2, height: 2 },
-                textShadowRadius: 2,
-              }}
-            >
-              {item.title}
-            </RkText>
+          <View rkCardImgOverlay rkCardContent style={cardContentStyle}>
+            <RkText style={textStyle}>{item.message}</RkText>
+            <RkText style={textStyle}>{item.title}</RkText>
           </View>
         </RkCard>
       </TouchableWithoutFeedback>
@@ -80,13 +65,7 @@ class Timeline extends Component {
   render() {
     if (this.props.loading && this.props.paintings.length === 0) {
       return (
-        <View
-          style={{
-            flex: 1,
-            alignContent: 'center',
-            flexDirection: 'column',
-          }}
-        >
+        <View style={styles.loadingContainerStyle}>
           <Spinner />
         </View>
       );
@@ -101,12 +80,51 @@ class Timeline extends Component {
           onEndReachedThreshold={0.5}
           onRefresh={this.onRefresh}
           refreshing={this.props.loading}
-          style={{ backgroundColor: 'gray' }}
+          style={styles.flatListStyle}
         />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  loadingContainerStyle: {
+    flex: 1,
+    alignContent: 'center',
+    flexDirection: 'column',
+  },
+  flatListStyle: {
+    backgroundColor: 'gray',
+  },
+  cardStyle: {
+    margin: 0,
+    padding: 0,
+    backgroundColor: 'black',
+  },
+  imgContainerStyle: {
+    backgroundColor: 'black',
+  },
+  imgStyle: {
+    width: Dimensions.get('window').width,
+    marginBottom: 0,
+    padding: 0,
+  },
+  cardContentStyle: {
+    width: Dimensions.get('window').width,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    margin: 0,
+    padding: 0,
+    backgroundColor: 'rgba(0,0,0,0)',
+  },
+  textStyle: {
+    color: 'white',
+    textAlign: 'right',
+    textShadowColor: 'black',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+  },
+});
 
 Timeline.propTypes = {
   fetchPaintings: PropTypes.func.isRequired,

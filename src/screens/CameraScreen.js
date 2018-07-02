@@ -59,10 +59,10 @@ class CameraScreen extends Component {
   }
 
   renderSnapButton() {
-    const { buttonStyle, buttonContainerStyle } = styles;
+    const { loadingContainerStyle, buttonStyle, buttonContainerStyle } = styles;
     if (this.state.loading) {
       return (
-        <View style={{ height: 60 }}>
+        <View style={loadingContainerStyle}>
           <Spinner />
         </View>
       );
@@ -112,6 +112,9 @@ CameraScreen.propTypes = {
 };
 
 const styles = StyleSheet.create({
+  loadingContainerStyle: {
+    height: 60,
+  },
   containerStyle: {
     flex: 1,
     flexDirection: 'column',
