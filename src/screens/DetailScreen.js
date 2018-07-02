@@ -4,7 +4,7 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 import PropTypes from 'prop-types';
 
 const Detail = ({ navigation }) => {
-  const url = navigation.state.params.item.photo_url; // eslint-disable-line
+  const url = navigation.state.params.item.photoUrl; // eslint-disable-line
   const images = [{ url }];
   return (
     <View style={{ flex: 1 }}>
@@ -18,7 +18,7 @@ Detail.propTypes = {
     state: PropTypes.shape({
       params: PropTypes.shape({
         item: PropTypes.shape({
-          photo_url: PropTypes.string.isRequired,
+          photoUrl: PropTypes.string.isRequired,
         }).isRequired,
       }).isRequired,
     }).isRequired,

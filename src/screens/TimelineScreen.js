@@ -35,7 +35,7 @@ class Timeline extends Component {
           <Image
             rkCardImg
             imgContainerStyle={{ backgroundColor: 'black' }}
-            source={{ uri: item.thumb_url }}
+            source={{ uri: item.thumbUrl }}
             style={{ height: 400, marginBottom: 0, padding: 0 }}
           />
           <View
@@ -116,7 +116,7 @@ Timeline.propTypes = {
   paintings: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      thumb_url: PropTypes.string.isRequired,
+      thumbUrl: PropTypes.string.isRequired,
       message: PropTypes.string.isRequired,
     })
   ).isRequired,

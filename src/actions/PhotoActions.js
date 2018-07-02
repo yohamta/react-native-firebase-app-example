@@ -84,15 +84,15 @@ export const uploadPhoto = ({
       category,
       message,
       /* photo */
-      photo_name: photoName,
-      photo_url: result[0],
-      photo_width: images[0].width,
-      photo_height: images[0].height,
+      photoName,
+      photoUrl: result[0],
+      photoWidth: images[0].width,
+      photoHeight: images[0].height,
       /* thumbnail */
-      thumb_name: thumbName,
-      thumb_url: result[1],
-      thumb_width: images[1].width,
-      thumb_height: images[1].height,
+      thumbName,
+      thumbUrl: result[1],
+      thumbWidth: images[1].width,
+      thumbHeight: images[1].height,
       /* timestamp */
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
