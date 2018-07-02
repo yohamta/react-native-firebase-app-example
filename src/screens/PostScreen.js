@@ -9,9 +9,8 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { RkButton, RkTextInput, RkTheme } from 'react-native-ui-kitten';
+import { StyleSheet, createObject } from 'react-native-stylesheet-merge';
 import { Spinner, FBLoginButton } from '../common/components';
-import StyleSheet from '../common/StyleSheet';
-import { createObject } from '../common/Functions';
 import { uploadPhoto, loginWithFacebook } from '../actions';
 
 class PostScreen extends Component {

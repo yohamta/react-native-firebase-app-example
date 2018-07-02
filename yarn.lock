@@ -6331,6 +6331,12 @@ react-native-scroller@0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/react-native-scroller/-/react-native-scroller-0.0.6.tgz#dea8c89bd1ca2d2445fbb6b3a90960df6c1767ff"
 
+react-native-stylesheet-merge@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-stylesheet-merge/-/react-native-stylesheet-merge-1.0.1.tgz#3e7234f0918f50ac6caac026a5fcda93d0ce0225"
+  dependencies:
+    react-native "^0.55.4"
+
 react-native-svg-web@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-native-svg-web/-/react-native-svg-web-1.0.1.tgz#16e1784077b6e5b6c7ebd9c3829e6684211cba99"
@@ -6391,7 +6397,7 @@ react-native-web-maps@^0.1.0:
   dependencies:
     react-google-maps "^7.3.0"
 
-react-native@~0.55.2:
+react-native@^0.55.4, react-native@~0.55.2:
   version "0.55.4"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.55.4.tgz#eecffada3750a928e2ddd07cf11d857ae9751c30"
   dependencies:

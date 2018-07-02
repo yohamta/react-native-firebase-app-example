@@ -28,7 +28,6 @@ class Timeline extends Component {
     return (
       <TouchableWithoutFeedback
         onPress={() => {
-          console.log({item});
           navigate('Detail', { item });
         }}
       >

@@ -39,6 +39,7 @@
     "react": "16.3.1",
     "react-native": "~0.55.2",
     "react-native-image-zoom-viewer": "^2.2.8",
+    "react-native-stylesheet-merge": "^1.0.1",
     "react-native-transformable-image": "^0.0.18",
     "react-native-ui-kitten": "^3.0.1",
     "react-navigation": "^2.4.1",

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Camera, Permissions } from 'expo';
 import { RkButton } from 'react-native-ui-kitten';
+import { StyleSheet } from 'react-native-stylesheet-merge';
 import { Spinner } from '../common/components';
-import StyleSheet from '../common/StyleSheet';
 import { photoSnapped } from '../actions';
 
 class CameraScreen extends Component {

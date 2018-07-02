@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Config from './common/Config';
 import { loginSuccess } from './actions';
 import TabNavigator from './TabNavigator';
 
@@ -8,13 +9,21 @@ class Root extends Component {
   componentWillMount() {
     const firebase = require('firebase'); // eslint-disable-line global-require
     if (!firebase.apps.length) {
+      console.log({
+        apiKey: Config.API_KEY,
+        authDomain: Config.AUTH_DOMAIN,
+        databaseURL: Config.DATABASE_URL,
+        projectId: Config.PROJECT_ID,
+        storageBucket: Config.STORAGE_BUCKET,
+        messagingSenderId: Config.MESSAGING_SENDER_ID,
+      });
       firebase.initializeApp({
-        apiKey: 'AIzaSyCCTBtJeAqoamDzT4LfKSQEfxmYhpvj9sM',
-        authDomain: 'rn-paintings.firebaseapp.com',
-        databaseURL: 'https://rn-paintings.firebaseio.com',
-        projectId: 'rn-paintings',
-        storageBucket: 'rn-paintings.appspot.com',
-        messagingSenderId: '465400638321',
+        apiKey: Config.API_KEY,
+        authDomain: Config.AUTH_DOMAIN,
+        databaseURL: Config.DATABASE_URL,
+        projectId: Config.PROJECT_ID,
+        storageBucket: Config.STORAGE_BUCKET,
+        messagingSenderId: Config.MESSAGING_SENDER_ID,
       });
       firebase.auth().onAuthStateChanged(user => {
         if (user) {

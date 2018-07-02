@@ -1,4 +1,5 @@
 import Expo from 'expo';
+import Config from '../common/Config';
 import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from './types';
 
 export const loginSuccess = user => ({
@@ -10,7 +11,7 @@ export const loginWithFacebook = () => async () => {
   try {
     const firebase = require('firebase'); // eslint-disable-line global-require
     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
-      '393602067714578',
+      Config.FACEBOOK_APP_ID,
       { permissions: ['public_profile'] }
     );
     if (type === 'success') {

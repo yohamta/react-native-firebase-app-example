@@ -1,5 +1,5 @@
 import React from 'react';
-import {YellowBox} from 'react-native';
+import { YellowBox } from 'react-native';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
