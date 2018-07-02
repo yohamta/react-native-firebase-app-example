@@ -9,14 +9,6 @@ class Root extends Component {
   componentWillMount() {
     const firebase = require('firebase'); // eslint-disable-line global-require
     if (!firebase.apps.length) {
-      console.log({
-        apiKey: Config.API_KEY,
-        authDomain: Config.AUTH_DOMAIN,
-        databaseURL: Config.DATABASE_URL,
-        projectId: Config.PROJECT_ID,
-        storageBucket: Config.STORAGE_BUCKET,
-        messagingSenderId: Config.MESSAGING_SENDER_ID,
-      });
       firebase.initializeApp({
         apiKey: Config.API_KEY,
         authDomain: Config.AUTH_DOMAIN,
