@@ -6,7 +6,6 @@ import moment from 'moment';
 import { StyleSheet } from 'react-native-stylesheet-merge';
 
 const Detail = ({ navigation }) => {
-  console.log(navigation.state.params.item);
   const {
     photoUrl,
     title,
