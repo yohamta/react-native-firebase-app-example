@@ -10,7 +10,7 @@
 
 ![QRCode](https://i.gyazo.com/0f17bdac5bab016949b05269eea043a8.png "QRCOde")
 
-1. And then the application will automatically start.
+3. And then the application will automatically start.
 
 ## How to run this Application on ios/Android emulator
 
