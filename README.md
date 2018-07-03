@@ -6,7 +6,8 @@
 ## How to run this Application
 
 ```sh
-$ git clone git@github.com:hayo0914/ImageBoardApp.git
+$ git clone git@github.com:hayo0914/ReactNative-ImageBoardApp-Sample.git
+$ cd ReactNative-ImageBoardApp-Sample
 
 $ yarn install 
 # or
@@ -22,7 +23,6 @@ $ yarn ios
 # or
 $ yarn android
 ```
-
 
 ## Licence
 MIT License.
