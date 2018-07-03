@@ -1,35 +1,86 @@
-import React from 'react';
-import { View, Text, Dimensions } from 'react-native';
-import ImageViewer from 'react-native-image-zoom-viewer';
+import React, { Component } from 'react';
+import { View, Text, Dimensions, Image } from 'react-native';
+import ImageZoom from 'react-native-image-pan-zoom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { StyleSheet } from 'react-native-stylesheet-merge';
+import { Spinner } from '../common/components';
 
-const Detail = ({ navigation }) => {
-  const {
-    photoUrl,
-    title,
-    message,
-    authorName,
-    createdAt,
-  } = navigation.state.params.item;
-  const images = [{ url: photoUrl }];
-  return (
-    <View style={styles.containerStyle}>
-      <ImageViewer imageUrls={images} />
-      <View style={styles.textContainerStyle}>
-        <Text style={styles.textStyle}>{title}</Text>
-        <Text style={styles.textStyle}>{message}</Text>
-        <Text style={styles.textStyle}>{authorName}</Text>
-        <Text style={styles.textStyle}>
-          {createdAt != null
-            ? moment(createdAt.toDate()).format('YYYY/MM/DD ddd HH:mm:ss')
-            : ''}
-        </Text>
+class Detail extends Component {
+  state = {
+    dimensions: {
+      width: Dimensions.get('window').width,
+      height: Dimensions.get('window').height,
+    },
+    loading: true,
+  };
+
+  onLayout = event => {
+    const { width, height } = event.nativeEvent.layout;
+    this.setState({ dimensions: { width, height } });
+  };
+
+  onLoadEnd = () => {
+    this.setState({ loading: false });
+  };
+
+  renderLoading = () => {
+    if (this.state.loading) {
+      const { width, height } = this.state.dimensions;
+      return (
+        <View style={[styles.loadingContainerStyle, { width, height }]}>
+          <Spinner />
+        </View>
+      );
+    }
+    return <View />;
+  };
+
+  render() {
+    const {
+      photoUrl,
+      title,
+      message,
+      authorName,
+      photoWidth,
+      photoHeight,
+      createdAt,
+    } = this.props.navigation.state.params.item;
+    const { width, height } = this.state.dimensions;
+    const imageWidth = photoWidth * (width / photoWidth);
+    const imageHeight = photoHeight * (width / photoWidth);
+    return (
+      <View style={styles.containerStyle} onLayout={this.onLayout}>
+        {this.renderLoading()}
+        <ImageZoom
+          cropWidth={width}
+          cropHeight={height}
+          imageWidth={imageWidth}
+          imageHeight={imageHeight}
+        >
+          <Image
+            style={{
+              width: imageWidth,
+              height: imageHeight,
+            }}
+            source={{ uri: photoUrl }}
+            onLoadEnd={this.onLoadEnd}
+          />
+        </ImageZoom>
+        <View style={styles.textContainerStyle}>
+          {title && <Text style={styles.textStyle}>{title}</Text>}
+          {message && <Text style={styles.textStyle}>{message}</Text>}
+          <Text style={styles.textStyle}>
+            {createdAt != null
+              ? moment(createdAt.toDate()).format('YYYY/MM/DD ddd HH:mm:ss')
+              : ''}
+          </Text>
+          <Text style={styles.textStyle}>{authorName}</Text>
+        </View>
       </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
 Detail.propTypes = {
   navigation: PropTypes.shape({
@@ -37,6 +88,12 @@ Detail.propTypes = {
       params: PropTypes.shape({
         item: PropTypes.shape({
           photoUrl: PropTypes.string.isRequired,
+          title: PropTypes.string.isRequired,
+          message: PropTypes.string.isRequired,
+          authorName: PropTypes.string.isRequired,
+          photoWidth: PropTypes.number.isRequired,
+          photoHeight: PropTypes.number.isRequired,
+          createdAt: PropTypes.object.isRequired,
         }).isRequired,
       }).isRequired,
     }).isRequired,
@@ -54,6 +111,7 @@ const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
     flexDirection: 'row',
+    backgroundColor: 'black',
   },
   textStyle: {
     paddingHorizontal: 10,
@@ -62,6 +120,11 @@ const styles = StyleSheet.create({
     textShadowColor: 'black',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
+  },
+  loadingContainerStyle: {
+    flex: 1,
+    position: 'absolute',
+    alignContent: 'center',
   },
 });
 

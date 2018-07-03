@@ -32,6 +32,7 @@ class Timeline extends Component {
 
   renderItem({ item }) {
     const { navigate } = this.props.navigation;
+    const { title, message } = item;
     const {
       cardStyle,
       imgContainerStyle,
@@ -54,8 +55,8 @@ class Timeline extends Component {
             style={imgStyle}
           />
           <View rkCardImgOverlay rkCardContent style={cardContentStyle}>
-            <RkText style={textStyle}>{item.message}</RkText>
-            <RkText style={textStyle}>{item.title}</RkText>
+            {title && <RkText style={textStyle}>{title}</RkText>}
+            {message && <RkText style={textStyle}>{message}</RkText>}
           </View>
         </RkCard>
       </TouchableWithoutFeedback>

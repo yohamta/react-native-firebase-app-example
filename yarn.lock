@@ -6266,15 +6266,9 @@ react-native-gesture-handler@1.0.0-alpha.41:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
-react-native-image-pan-zoom@^2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.6.tgz#9f5832055695813e95aa87f08a88996927f84ad0"
-
-react-native-image-zoom-viewer@^2.2.8:
-  version "2.2.8"
-  resolved "https://registry.yarnpkg.com/react-native-image-zoom-viewer/-/react-native-image-zoom-viewer-2.2.8.tgz#da4bf37c15fd677c8bb1673a493ffd4561f312d4"
-  dependencies:
-    react-native-image-pan-zoom "^2.1.6"
+react-native-image-pan-zoom@^2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.7.tgz#1c066e66f8f345f5e1fc187f02d92c482952bb59"
 
 react-native-maps@0.21.0:
   version "0.21.0"
