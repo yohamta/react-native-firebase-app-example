@@ -4,6 +4,7 @@
     "version": "1.0.0",
     "slug": "rn-paintings",
     "sdkVersion": "27.0.0",
-    "privacy": "public"
+    "privacy": "public",
+    "description": "Simple Image Board Application using Firebase."
   }
 }
