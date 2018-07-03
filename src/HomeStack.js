@@ -12,10 +12,14 @@ import transitionConfig from './common/TransitionConfig';
 
 const navigationOptions = {
   headerTitle: 'Paintings',
+  headerStyle: {
+    borderBottomWidth: 0,
+  },
   headerTitleStyle: {
     textAlign: 'center',
     alignSelf: 'center',
     flex: 1,
+    color: '#a167bf',
   },
 };
 

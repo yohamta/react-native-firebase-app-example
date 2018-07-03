@@ -28,6 +28,9 @@ export default (state = INITIAL_STATE, action) => {
         loading: false,
       };
     case PAINTINGS_FETCH_ADD:
+      if (state.paintings.find(value => state.paintings.id === value.id)) {
+        return state;
+      }
       return {
         ...state,
         paintings: [...action.payload, ...state.paintings],
