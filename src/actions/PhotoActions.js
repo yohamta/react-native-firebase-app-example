@@ -69,6 +69,12 @@ const saveDocumentToFirestore = async (collection, document) => {
   await db.collection(collection).add(document);
 };
 
+const getTimestamp = () => {
+  const firebase = require('firebase'); // eslint-disable-line global-require
+  require('firebase/firestore'); // eslint-disable-line global-require
+  return firebase.firestore.FieldValue.serverTimestamp();
+};
+
 export const uploadPhoto = ({
   navigation,
   photo,
@@ -93,6 +99,7 @@ export const uploadPhoto = ({
       uploadPhotoBlob(images[1], thumbName),
     ]);
     // write messaget to firestore
+    const timestamp = getTimestamp();
     await saveDocumentToFirestore('paintings', {
       uid,
       authorName,
@@ -110,8 +117,8 @@ export const uploadPhoto = ({
       thumbWidth: images[1].width,
       thumbHeight: images[1].height,
       /* timestamp */
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      createdAt: timestamp,
+      updatedAt: timestamp,
     });
     dispatch({ type: UPLOAD_PHOTO_SUCCESS });
     navigation.navigate('Timeline');
