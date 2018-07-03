@@ -79,7 +79,6 @@ export const uploadPhoto = ({
   navigation,
   photo,
   title,
-  category,
   message,
   uid,
   authorName,
@@ -104,7 +103,6 @@ export const uploadPhoto = ({
       uid,
       authorName,
       title,
-      category,
       message,
       /* photo */
       photoName,

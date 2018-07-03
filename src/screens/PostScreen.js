@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   View,
+  TextInput,
   Image,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -8,7 +9,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { RkButton, RkTextInput, RkTheme } from 'react-native-ui-kitten';
+import { RkButton } from 'react-native-ui-kitten';
 import { StyleSheet, createObject } from 'react-native-stylesheet-merge';
 import { Spinner, FBLoginButton } from '../common/components';
 import { uploadPhoto, loginWithFacebook } from '../actions';
@@ -16,7 +17,6 @@ import { uploadPhoto, loginWithFacebook } from '../actions';
 class PostScreen extends Component {
   state = {
     title: '',
-    category: '',
     message: '',
   };
 
@@ -25,7 +25,6 @@ class PostScreen extends Component {
       navigation: this.props.navigation,
       photo: this.props.photo,
       title: this.state.title,
-      category: this.state.category,
       message: this.state.message,
       uid: this.props.user.uid,
       authorName: this.props.user.displayName,
@@ -92,23 +91,16 @@ class PostScreen extends Component {
               />
             </View>
             <View style={inputContainerStyle}>
-              <RkTextInput
+              <TextInput
                 placeholder="Title"
                 rkType="post"
-                style={{ height: 40 }}
+                style={[styles.commentTextStyle, { height: 40 }]}
                 onChangeText={title => this.setState({ title })}
               />
-              <RkTextInput
-                placeholder="Category"
-                rkType="post"
-                style={{ height: 40 }}
-                onChangeText={category => this.setState({ category })}
-              />
-              <RkTextInput
+              <TextInput
                 placeholder="Comment"
                 multiline
-                rkType="post"
-                style={{ flex: 3, minHeight: 40 }}
+                style={[styles.commentTextStyle, { flex: 1 }]}
                 onChangeText={message => this.setState({ message })}
               />
               {this.renderButton()}
@@ -141,23 +133,6 @@ PostScreen.defaultProps = {
   photo: null,
 };
 
-RkTheme.setType(
-  'RkTextInput',
-  'post',
-  createObject({
-    input: {
-      borderWidth: 0.5,
-      borderRadius: 8,
-      borderColor: 'gray',
-      alignSelf: 'stretch',
-      paddingLeft: 16,
-    },
-    paddingRight: 16,
-    underlineWidth: 0,
-    marginVertical: 0,
-  })
-);
-
 const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
@@ -176,6 +151,19 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     alignSelf: 'center',
+  },
+  titleTextStyle: {
+    height: 40,
+  },
+  commentTextStyle: {
+    minHeight: 40,
+    borderWidth: 0.5,
+    borderRadius: 8,
+    borderColor: 'gray',
+    alignSelf: 'stretch',
+    paddingLeft: 16,
+    marginHorizontal: 16,
+    marginBottom: 10,
   },
 });
 
