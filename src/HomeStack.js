@@ -11,7 +11,7 @@ import {
 import transitionConfig from './common/TransitionConfig';
 
 const navigationOptions = {
-  headerTitle: 'Paintings',
+  headerTitle: 'Vincent',
   headerTitleStyle: {
     textAlign: 'center',
     alignSelf: 'center',
