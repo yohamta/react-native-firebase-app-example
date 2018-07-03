@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { RkButton } from 'react-native-ui-kitten';
-import { StyleSheet, createObject } from 'react-native-stylesheet-merge';
+import { StyleSheet } from 'react-native-stylesheet-merge';
 import { Spinner, FBLoginButton } from '../common/components';
 import { uploadPhoto, loginWithFacebook } from '../actions';
 
@@ -96,12 +96,14 @@ class PostScreen extends Component {
                 rkType="post"
                 style={[styles.commentTextStyle, { height: 40 }]}
                 onChangeText={title => this.setState({ title })}
+                underlineColorAndroid="rgba(0,0,0,0)"
               />
               <TextInput
                 placeholder="Comment"
                 multiline
                 style={[styles.commentTextStyle, { flex: 1 }]}
                 onChangeText={message => this.setState({ message })}
+                underlineColorAndroid="rgba(0,0,0,0)"
               />
               {this.renderButton()}
             </View>
