@@ -21,7 +21,8 @@ const parseSnapshots = querySnapshot => {
 
 const FETCH_LIMIT = 3;
 
-export const fetchNextPaintings = lastVisible => async dispatch => {
+// @flow
+export const fetchNextPaintings = (lastVisible: object) => async dispatch => {
   try {
     dispatch({
       type: PAINTINGS_FETCH,

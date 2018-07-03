@@ -6,6 +6,9 @@ import {
   UPLOAD_PHOTO_SUCCESS,
 } from './types';
 
+// Upload a file to cloud store
+// blob: byte array of the file
+// name: name of the file to save to cloud storage
 async function uploadFile(blob, name) {
   const firebase = require('firebase'); // eslint-disable-line global-require
   const ref = firebase
@@ -16,12 +19,18 @@ async function uploadFile(blob, name) {
   return snapshot.ref.getDownloadURL();
 }
 
+// Upload a image to cloud store
+// photo: the photo to upload
+// name: name of the file to save to cloud storage
 async function uploadPhotoBlob(photo, name) {
   const response = await fetch(photo.uri);
   const blob = await response.blob();
   return uploadFile(blob, name);
 }
 
+// Resize a image file
+// photo: the image file to resize
+// compress: compression leve of the resized image(0.0 - 1.0)
 async function createThumbnail(photo, maxSize, compress) {
   let width;
   let height;
@@ -50,6 +59,16 @@ export const photoSnapped = ({ photo, navigation }) => {
   };
 };
 
+// Save document to firestore
+// collection: collection name of firestore
+// document: document to save
+const saveDocumentToFirestore = async (collection, document) => {
+  const firebase = require('firebase'); // eslint-disable-line global-require
+  require('firebase/firestore'); // eslint-disable-line global-require
+  const db = firebase.firestore();
+  await db.collection(collection).add(document);
+};
+
 export const uploadPhoto = ({
   navigation,
   photo,
@@ -74,10 +93,7 @@ export const uploadPhoto = ({
       uploadPhotoBlob(images[1], thumbName),
     ]);
     // write messaget to firestore
-    const firebase = require('firebase'); // eslint-disable-line global-require
-    require('firebase/firestore'); // eslint-disable-line global-require
-    const db = firebase.firestore();
-    await db.collection('paintings').add({
+    await saveDocumentToFirestore('paintings', {
       uid,
       authorName,
       title,
