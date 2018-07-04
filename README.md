@@ -2,6 +2,19 @@
 
 ## Application overview
 
+<table border="0">
+  <tr>
+    <td>
+      <img src="/sample-videos/video1.gif?raw=true" width="200px">
+    </td>
+    <td>
+      <img src="/sample-videos/video2.gif?raw=true" width="200px">
+    </td>
+    <td>
+      <img src="/sample-videos/video3.gif?raw=true" width="200px">
+    </td>
+  </tr>
+</table>
 
 ## How to try this Application
 
@@ -12,7 +25,7 @@
 
 3. And then the application will automatically start.
 
-## How to run this Application on ios/Android emulator
+## How to run this Application on iOS/Android emulator
 
 1. setup AndroidStudio or XCode
 1. start Android Emulator or iOS Simulator
@@ -26,15 +39,15 @@ $ yarn install
 # or
 $ npm install
 
-# run on android
-$ npm run android
+# run on Android
+$ npm run Android
 # or 
-$ yarn android
+$ yarn Android
 
-# run on ios
-$ yarn ios
+# run on iOS
+$ yarn iOS
 # or
-$ yarn android
+$ yarn Android
 ```
 
 ## Licence
