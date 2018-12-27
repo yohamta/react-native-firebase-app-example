@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { SafeAreaView } from 'react-native';
 import Config from './common/Config';
 import { loginSuccess } from './actions';
 import TabNavigator from './TabNavigator';
@@ -30,7 +31,11 @@ class Root extends Component {
   }
 
   render() {
-    return <TabNavigator />;
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+        <TabNavigator />
+      </SafeAreaView>
+    );
   }
 }
 
