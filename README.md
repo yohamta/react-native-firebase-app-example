@@ -27,8 +27,8 @@
 
 ## How to run this Application on iOS/Android emulator
 
-1. setup AndroidStudio or XCode
-1. start Android Emulator or iOS Simulator
+1. Setup AndroidStudio or XCode
+1. Start Android Emulator or iOS Simulator
 1. Then run the commands below.
 
 ```sh
