@@ -40,14 +40,14 @@ $ yarn install
 $ npm install
 
 # run on Android
-$ npm run Android
+$ npm run android
 # or 
-$ yarn Android
+$ yarn android
 
 # run on iOS
-$ yarn iOS
+$ yarn ios
 # or
-$ yarn Android
+$ yarn ios
 ```
 
 ## Licence
