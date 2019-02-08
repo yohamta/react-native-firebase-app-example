@@ -1,4 +1,4 @@
-# Image board sample built with React Native and Firebase
+# Camera App Example using React Native and Firebase
 
 ## Application overview
 
